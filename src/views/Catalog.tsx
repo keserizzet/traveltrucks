@@ -14,9 +14,20 @@ export function Catalog() {
     dispatch(resetCampers())
     const params: Record<string, any> = { page: 1, limit: 10 }
     if (filters.location) params.location = filters.location
-    if (filters.vehicleType) params.type = filters.vehicleType
+    if (filters.vehicleType) params.form = filters.vehicleType
+    const extrasKeyMap: Record<string, string> = {
+      ac: 'AC',
+      kitchen: 'kitchen',
+      bathroom: 'bathroom',
+      tv: 'TV',
+      radio: 'radio',
+      refrigerator: 'refrigerator',
+      microwave: 'microwave',
+      gas: 'gas',
+      water: 'water',
+    }
     Object.entries(filters.extras).forEach(([k, v]) => {
-      if (v) params[k] = true
+      if (v) params[extrasKeyMap[k]] = true
     })
     dispatch(loadCampers(params))
   }, [dispatch, filters])
@@ -24,9 +35,20 @@ export function Catalog() {
   const loadMore = () => {
     const params: Record<string, any> = { page: page + 1, limit: 10 }
     if (filters.location) params.location = filters.location
-    if (filters.vehicleType) params.type = filters.vehicleType
+    if (filters.vehicleType) params.form = filters.vehicleType
+    const extrasKeyMap: Record<string, string> = {
+      ac: 'AC',
+      kitchen: 'kitchen',
+      bathroom: 'bathroom',
+      tv: 'TV',
+      radio: 'radio',
+      refrigerator: 'refrigerator',
+      microwave: 'microwave',
+      gas: 'gas',
+      water: 'water',
+    }
     Object.entries(filters.extras).forEach(([k, v]) => {
-      if (v) params[k] = true
+      if (v) params[extrasKeyMap[k]] = true
     })
     dispatch(loadCampers(params))
   }

@@ -18,9 +18,9 @@ export function Filters() {
         onChange={(e) => dispatch(setVehicleType(e.target.value || null))}
       >
         <option value="">Araç Tipi</option>
-        <option value="panelvan">Panelvan</option>
         <option value="alcove">Alcove</option>
-        <option value="integrated">Integrated</option>
+        <option value="panelTruck">Panel Truck</option>
+        <option value="fullyIntegrated">Fully Integrated</option>
       </select>
       {(['ac','kitchen','bathroom','tv','radio','refrigerator','microwave','gas','water'] as const).map((key) => (
         <label key={key} style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
