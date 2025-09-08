@@ -11,9 +11,12 @@ export type Camper = {
   price: number
   location: string
   description?: string
-  gallery?: string[]
+  gallery?: Array<string | { thumb?: string; original?: string }>
   rating?: number
-  reviews?: Array<{ id: string; author: string; rating: number; comment: string; date?: string }>
+  reviews?: Array<
+    | { id?: string; author?: string; rating?: number; comment?: string; date?: string }
+    | { reviewer_name?: string; reviewer_rating?: number; comment?: string; date?: string; id?: string }
+  >
   // ...extend as backend fields become known
 }
 

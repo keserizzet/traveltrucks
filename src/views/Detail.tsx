@@ -34,9 +34,11 @@ export function Detail() {
         </div>
       </header>
       <section style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        {(data.gallery ?? []).map((src, i) => (
-          <img key={i} src={src} alt="camper" style={{ width: 160, height: 120, objectFit: 'cover' }} />
-        ))}
+        {(data.gallery ?? []).map((g, i) => {
+          const src = typeof g === 'string' ? g : g.original || g.thumb
+          if (!src) return null
+          return <img key={i} src={src} alt="camper" style={{ width: 160, height: 120, objectFit: 'cover' }} />
+        })}
       </section>
       <section>
         <h3>Detaylar</h3>
@@ -44,16 +46,23 @@ export function Detail() {
       </section>
       <section>
         <h3>Yorumlar</h3>
-        {(data.reviews ?? []).map((r) => (
-          <div key={r.id} style={{ borderTop: '1px solid #eee', padding: '8px 0' }}>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <strong>{r.author}</strong>
-              <RatingStars value={r.rating} />
-              {r.date && <span>{r.date}</span>}
+        {(data.reviews ?? []).map((r, idx) => {
+          const key = (r as any).id ?? idx.toString()
+          const author = (r as any).author ?? (r as any).reviewer_name ?? 'Kullanıcı'
+          const rating = (r as any).rating ?? (r as any).reviewer_rating ?? 0
+          const comment = (r as any).comment ?? ''
+          const date = (r as any).date
+          return (
+            <div key={key} style={{ borderTop: '1px solid #eee', padding: '8px 0' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <strong>{author}</strong>
+                <RatingStars value={Number(rating) || 0} />
+                {date && <span>{date}</span>}
+              </div>
+              <div>{comment}</div>
             </div>
-            <div>{r.comment}</div>
-          </div>
-        ))}
+          )
+        })}
       </section>
       <section>
         <h3>Rezervasyon</h3>
