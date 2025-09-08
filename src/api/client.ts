@@ -19,7 +19,8 @@ export type Camper = {
 
 export async function fetchCampers(params?: Record<string, string | number | boolean>) {
   const res = await api.get('/campers', { params })
-  return res.data as Camper[]
+  const data = res.data as unknown
+  return (Array.isArray(data) ? data : []) as Camper[]
 }
 
 export async function fetchCamperById(id: string) {

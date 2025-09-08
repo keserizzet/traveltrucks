@@ -38,9 +38,11 @@ export function Catalog() {
       </div>
       <Filters />
       <div className={styles.grid}>
-        {items.map((c) => (
-          <CamperCard key={c.id} camper={c} />
-        ))}
+        {Array.isArray(items) && items.length > 0 ? (
+          items.map((c) => <CamperCard key={c.id} camper={c} />)
+        ) : (
+          <p>Sonuç bulunamadı.</p>
+        )}
       </div>
       {status === 'loading' && <p>Yükleniyor...</p>}
       {hasMore && (

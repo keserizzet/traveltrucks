@@ -43,7 +43,8 @@ const campersSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(loadCampers.fulfilled, (state, action) => {
-        const incoming = action.payload.data
+        const raw = action.payload.data as unknown
+        const incoming = Array.isArray(raw) ? raw : []
         const page = action.payload.params?.page ?? 1
         if (page === 1) {
           state.items = incoming
@@ -51,7 +52,7 @@ const campersSlice = createSlice({
           state.items = state.items.concat(incoming)
         }
         state.page = page
-        state.hasMore = incoming.length > 0
+        state.hasMore = Array.isArray(incoming) && incoming.length > 0
         state.status = 'succeeded'
       })
       .addCase(loadCampers.rejected, (state, action) => {
