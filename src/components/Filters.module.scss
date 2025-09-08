@@ -1,0 +1,12 @@
+.wrap {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 0 16px;
+}
+
+input, select, button, label {
+  font-size: 14px;
+}
+
